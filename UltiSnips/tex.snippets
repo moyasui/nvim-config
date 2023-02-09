@@ -1,0 +1,565 @@
+global !p
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+def comment(): 
+	return vim.eval('vimtex#syntax#in_comment()') == '1'
+def env(name):
+	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
+	return x != '0' and y != '0'
+endglobal
+
+snippet mynote "template for latex notes" b
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\usepackage{graphicx}   
+\usepackage{tikz} 
+\usepackage{braket}
+\graphicspath{{./images/}}
+
+\usepackage{xcolor}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{example}{Example}
+\newtheorem{lemma}{Lemma}[section]
+
+\begin{document}
+\title{${1:${VISUAL}}}
+\author{Keran Chen}
+\maketitle
+
+\noindent
+
+$2
+
+\end{document}
+endsnippet	
+
+snippet project "Project template provided by UIO"
+\documentclass[english,notitlepage,reprint,nofootinbib]{revtex4-1}  
+
+\usepackage[utf8]{inputenc}
+
+
+\usepackage{physics,amssymb}  % mathematical symbols (physics imports amsmath)
+\include{amsmath}
+\usepackage{graphicx}         % include graphics such as plots
+\usepackage{xcolor}           % set colors
+\usepackage{hyperref}         % automagic cross-referencing
+\usepackage{listings}         % display code
+\usepackage{subfigure}        % imports a lot of cool and useful figure commands
+% \usepackage{float}
+%\usepackage[section]{placeins}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usetikzlibrary{quantikz}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}}
+
+
+% ===========================================
+
+
+\begin{document}
+
+\title{$1}  % self-explanatory
+\author{$2} % self-explanatory
+\date{\today}                             % self-explanatory
+\noaffiliation                            % ignore this, but keep it.
+
+%This is how we create an abstract section.
+\begin{abstract}
+    \end{abstract}
+\maketitle
+
+
+% ===========================================
+\section{Introduction}
+$3
+%
+
+% ===========================================
+\section{Methods}\label{sec:methods}
+%
+
+% ===========================================
+\subsection*{The algorithm}
+%
+
+% ===========================================
+\section{Results}\label{sec:results}
+%
+% ===========================================
+\section{Discussion}\label{sec:discussion}
+%
+
+% ===========================================
+\section{Conclusion}\label{sec:conclusion}
+
+\onecolumngrid
+
+%\bibliographystyle{apalike}
+\bibliography{ref}
+
+
+\end{document}
+endsnippet
+
+snippet thm "enter theorem enviroment" b
+\begin{theorem}
+	$1
+\end{theorem}
+$2
+endsnippet
+
+snippet def "definition enviroment" b
+\begin{definition}
+	$1
+\end{definition}
+$2
+endsnippet
+
+snippet remark "remark" b
+\begin{remark}
+	$1
+\end{remark}
+$2
+endsnippet
+
+snippet beg "begin{} / end{}" bA
+\\begin{${1:enviroment}}
+	$0
+\\end{$1}
+endsnippet
+
+context "math()"
+snippet () "left( right)" iA
+\left( ${1:${VISUAL}} \right) $0
+endsnippet
+
+context "math()"
+snippet lr "left( right)" i
+\left( ${1:${VISUAL}} \right) $0
+endsnippet
+
+context "math()"
+snippet lr( "left( right)" i
+\left( ${1:${VISUAL}} \right) $0
+endsnippet
+
+context "math()"
+snippet lr| "left| right|" i
+\left| ${1:${VISUAL}} \right| $0
+endsnippet
+
+context "math()"
+snippet lr{ "left\{ right\}" i
+\left\\{ ${1:${VISUAL}} \right\\} $0
+endsnippet
+
+context "math()"
+snippet lrb "left\{ right\}" i
+\left\\{ ${1:${VISUAL}} \right\\} $0
+endsnippet
+
+context "math()"
+snippet lr[ "left[ right]" iA
+\left[ ${1:${VISUAL}} \right] $0
+endsnippet
+
+context "math()"
+snippet lra "leftangle rightangle" iA
+\left \langle ${1:${VISUAL}} \rangle \right>$0
+endsnippet
+
+context "math()"
+snippet cc "Complex numbers" A
+\mathbb{C}
+endsnippet
+
+context "math()"
+snippet rr "Real numbers" iA
+\mathbb{R}
+endsnippet
+
+context "math()"
+snippet zz "Integer" iA 
+\mathbb{Z}
+endsnippet
+
+context "math()"
+snippet neq "not equal" A
+\neq
+endsnippet
+
+context "math()"
+snippet leq "less than or equal to" iA
+\leq
+endsnippet
+
+context "math()"
+snippet geq "greater than or equal to" iA
+\geq
+endsnippet
+
+context "math()"
+snippet => "implies" Ai
+\implies
+endsnippet
+
+context "math()"
+snippet =< "implied by" Ai
+\impliedby
+endsnippet
+
+snippet sm  "inline maths enviroment" 
+$ $1 $ $2
+endsnippet
+
+snippet dm  "double maths enviroment" A
+\[ $1 \] $2
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])(\d)' "auto subscript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+endsnippet
+
+snippet sr "^2" iA
+^2
+endsnippet
+
+snippet cb "^3" iA
+^3
+endsnippet
+
+context "math()"
+snippet compl "complement" iA
+^{c}
+endsnippet
+
+snippet td "superscript" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet nn "n" iA
+\mathbb{N}
+endsnippet
+
+context "math()"
+snippet NN "cap" iA
+\cap 
+endsnippet
+
+snippet UU "cup" iA
+\cup 
+endsnippet
+
+context "math()"
+snippet ss "subset" Ai
+\subset 
+endsnippet
+
+context "math()"
+snippet notin "not in " iA
+\not\in 
+endsnippet
+
+context "math()"
+snippet oo "emptyset" iA
+\emptyset
+endsnippet
+
+context "math()
+snippet foz "f of sth" iA
+f(z)
+endsnippet
+
+context "math()"
+snippet goz "g(z)" iA
+g(z)
+endsnippet
+
+snippet iff "if and only if" A
+if and only if
+endsnippet
+
+snippet holo "holomorphic" A
+holomorphic
+endsnippet
+
+context "math()"
+snippet omg "\Omega" iA
+\Omega
+endsnippet
+
+context "math()"
+snippet sum "sum"
+\sum_{${1:n=0}}^{${1:\infty}}
+endsnippet
+
+snippet exm "example"
+\begin{example}[$1]
+$2
+\end{example}
+endsnippet
+
+context "math()"
+snippet in "\in" A
+\in
+endsnippet
+
+context "math()"
+snippet to "\to" iA
+\to
+endsnippet
+
+snippet coro "corollary enviroment" 
+\begin{corollary}
+	$0
+\end{corollary}
+endsnippet
+
+context "math()"
+snippet nbh "neighbourhood D" iA
+D(${1:z_0},${2:R})
+endsnippet
+
+context "math()"
+snippet fal "for all" iA
+\forall
+endsnippet
+
+context "math()"
+snippet exs "exists" iA
+\exists
+endsnippet
+
+snippet domo "description" A
+domain $ \omega $
+endsnippet
+
+context "math()"
+snippet eps "\epsilon" A
+\epsilon
+endsnippet
+
+snippet red "make the text red" 
+{\color{red} $1 } $2
+endsnippet
+
+snippet blue "make the text blue" 
+{\color{blue} $1 } $2
+endsnippet 
+
+context "math()"
+snippet dfdx "df/dx" A
+\frac{d${1:f}}{d${2:x}}
+endsnippet
+
+context "math()"
+snippet dydx "dy/dx"
+\frac{dy}{dx}
+endsnippet
+
+context "math()"
+snippet pfpx "df/dx" iA
+\left (\frac{\partial ${1:f}}{\partial ${2:x}} \right )$3
+endsnippet
+
+context "math()"
+snippet ii "integral of f(z)" A
+\int_{${1:C} f(z) dz
+endsnippet
+
+snippet ff "f in maths mod" A
+$f$
+endsnippet
+
+context "math()"
+snippet pmsum "from - infinty to infinty" Ai
+\sum_{n=-\infty}^{\infty} 
+endsnippet
+
+snippet bf "bold enviroment" Ai
+\textbf{$1} $2
+endsnippet
+
+snippet notes "new notes styles"
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}	% Para caracteres en español
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{multirow,booktabs}
+\usepackage[table]{xcolor}
+\usepackage{fullpage}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{wrapfig}
+\usepackage{setspace}
+\usepackage{calc}
+\usepackage{multicol}
+\usepackage{cancel}
+\usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage[margin=3cm]{geometry}
+\usepackage{braket}
+
+
+\newlength{\tabcont}
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+\usepackage{empheq}
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\colorlet{shadecolor}{orange!15}
+\parindent 0in
+\parskip 12pt
+\geometry{margin=1in, headsep=0.25in}
+\theoremstyle{definition}
+
+\newtheorem{defn}{Definition}
+\newtheorem{reg}{Rule}
+\newtheorem{exer}{Exercise}
+\newtheorem{note}{Note}
+
+
+\begin{document}
+\setcounter{section}{0}
+\title{${1:New Notes}}
+
+\thispagestyle{empty}
+
+endsnippet
+
+context "math()"
+snippet 1/2 "description" A
+\frac{1}{2}
+endsnippet
+
+context "math()"
+snippet op "operatior in QM" iA
+\hat $1
+endsnippet
+
+context "math()"
+snippet eb "expectation value of " iA
+\mathbb{E}($1)
+endsnippet
+	
+context "math()"
+snippet MM "2x2 matrix enviroment" A
+\begin{bmatrix}
+$1 & $2 \\\\
+$3 & $4
+\end{bmatrix} $5
+endsnippet
+	
+context "math()"
+snippet dg "dag" iA
+^{\dag}
+endsnippet	
+
+context "math()"
+snippet psi "\psi" iA
+\psi
+endsnippet
+
+context "math()"
+snippet kts "ket of \psi" iA
+\ket{\psi_{$1}^{$2}} $3
+endsnippet
+
+context "math()"
+snippet brs "bra of \psi" iA
+\bra{\psi_{$1}^{$2}} $3
+endsnippet
+	
+context "math()"
+snippet ud "subscript and superscript" iA
+_{$1}^{$2} $3
+endsnippet
+	
+context "math()"
+snippet sin "\sin" iA
+\sin
+endsnippet
+
+context "math()"
+snippet cos "\cos" iA
+\cos
+endsnippet
+
+context "math()"
+snippet tan "\tan" iA
+\tan
+endsnippet
+	
+context "math()"
+snippet vt "\vect" iA
+\vect{${1:y}} $2
+endsnippet
+
+snippet fi "description"
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\linewidth]{$1}
+	\caption{$2}
+	\label{fig:$3}
+\end{figure}
+$4
+endsnippet
+
+context "math()"
+snippet fox "f of x"
+f(x)
+endsnippet
+
+context "math()"
+snippet foxx "f of vector x" iA
+f(\vect(x))
+endsnippet
+	
+context "math()"
+snippet -> "rightarrow"
+\rightarrow
+endsnippet
+
+context "math()"
+snippet <- "leftarrow"
+\leftarrow
+endsnippet
+	
+snippet plan "plan environment"
+\begin{shaded}
+	\textbf{Today's plan:}
+	\begin{enumerate}
+		\item $1
+	\end{enumerate}
+\end{shaded}
+$2
+endsnippet 
+
+context "math()"
+snippet dj "\dj d with a slash, not exact diff" A
+\text{\dj}
+endsnippet
+
