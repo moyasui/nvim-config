@@ -17,9 +17,24 @@ snippet mynote "template for latex notes" b
 \geometry{margin=1in}
 \usepackage{hyperref}
 \usepackage{graphicx}   
+\usepackage{enumitem}
+\usepackage{mathrsfs}
 \usepackage{tikz} 
 \usepackage{braket}
 \graphicspath{{./images/}}
+
+\newlength{\tabcont}
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+\usepackage{empheq}
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\colorlet{shadecolor}{orange!15}
+\parindent 0in
+\parskip 12pt
+\geometry{margin=1in, headsep=0.25in}
+\theoremstyle{definition}
 
 \usepackage{xcolor}
 \newtheorem{theorem}{Theorem}[section]
@@ -115,6 +130,39 @@ $3
 
 \end{document}
 endsnippet
+
+snippet ttlpp "\titlePP"
+% FANCY TITLE PAGE
+\providecommand{\HUGE}{\Huge}% if not using memoir
+\newlength{\drop}% for my convenience
+%% specify the Webomints family
+%% select a (FontSite) font by its font family ID
+\newcommand*{\FSfont}[1]{\fontencoding{T1}\fontfamily{#1}\selectfont}
+%% if you don’t have the FontSite fonts either \renewcommand*{\FSfont}[1]{}
+%% or use your own choice of family.
+%% select a (TeX Font) font by its font family ID
+\newcommand*{\TXfont}[1]{\fontencoding{T1}\fontfamily{#1}\selectfont}
+%% Generic publisher’s logo
+\newcommand*{\plogo}{\fbox{$\mathcal{PL}$}}
+
+\newcommand*{\titlePP}{\begingroup% Printing Poetry
+\drop=0.1\textheight
+\vspace*{\drop}
+\begin{raggedleft}
+{${1:text pretitle}}\\\\[1.1\baselineskip]
+{\bsifamily \HUGE ${2:main title}}\\\\[\baselineskip]
+\FSfont{cmr}
+{\Large By Moyasui}\par
+\end{raggedleft}
+\vfill
+\begin{center}
+\FSfont{cmr}
+{\large ${3:year}}
+\end{center}
+\vspace*{\drop}
+\endgroup}
+% FANCY TITLE END
+endsnippet 
 
 snippet thm "enter theorem enviroment" b
 \begin{theorem}
@@ -287,7 +335,7 @@ snippet oo "emptyset" iA
 \emptyset
 endsnippet
 
-context "math()
+context "math()"
 snippet foz "f of sth" iA
 f(z)
 endsnippet
@@ -377,11 +425,6 @@ endsnippet
 context "math()"
 snippet dydx "dy/dx"
 \frac{dy}{dx}
-endsnippet
-
-context "math()"
-snippet pfpx "df/dx" iA
-\left (\frac{\partial ${1:f}}{\partial ${2:x}} \right )$3
 endsnippet
 
 context "math()"
@@ -563,3 +606,21 @@ snippet dj "\dj d with a slash, not exact diff" A
 \text{\dj}
 endsnippet
 
+context "math()"
+snippet gibbsduhem "Gibbs-Duhem relation in statistical mechanics"
+d\mu = -\frac{S}{N} dT + \frac{V}{N}dP 
+endsnippet 
+
+snippet shade "Shaded enviroment"
+\begin{shaded*}
+$1
+\end{shaded*}
+endsnippet
+
+snippet 'p([A-Za-z])p([A-Za-z])' "partial derivatives" wrA
+\left( \frac{\partial `!p snip.rv = match.group(1)`}{\partial `!p snip.rv = match.group(2)`} \right)_{$1} $2
+endsnippet 
+
+snippet '2p(A-Za-z)p([A-Za-z])' "second order partial derivatives" wrA
+\left( \frac{\partial^2 `!p snip.rv = match.group(1)`}{\partial `!p snip.rv = match.group(2)`^2} \right)_{$1} $2
+endsnippet 
