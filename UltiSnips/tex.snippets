@@ -617,10 +617,33 @@ $1
 \end{shaded*}
 endsnippet
 
+context "math()"
 snippet 'p([A-Za-z])p([A-Za-z])' "partial derivatives" wrA
 \left( \frac{\partial `!p snip.rv = match.group(1)`}{\partial `!p snip.rv = match.group(2)`} \right)_{$1} $2
 endsnippet 
 
+context "math()"
 snippet '2p(A-Za-z)p([A-Za-z])' "second order partial derivatives" wrA
 \left( \frac{\partial^2 `!p snip.rv = match.group(1)`}{\partial `!p snip.rv = match.group(2)`^2} \right)_{$1} $2
+endsnippet 
+
+
+context "math()"
+snippet '\.\.(\d)' "ket1" wrA
+\ket{`!p snip.rv = match.group(1)`}
+endsnippet
+
+context "math()"
+snippet '\.(\d\d)' "ket2" wrA
+\ket{`!p snip.rv = match.group(1)`}
+endsnippet
+
+context "math()"
+snippet ',,(\d)' "bra1" wrA
+\bra{`!p snip.rv = match.group(1)`}
+endsnippet 
+
+context "math()"
+snippet ',(\d\d)' "bra2" wrA
+\bra{`!p snip.rv = match.group(1)`}
 endsnippet 
