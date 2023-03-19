@@ -271,7 +271,7 @@ snippet =< "implied by" Ai
 \impliedby
 endsnippet
 
-snippet sm  "inline maths enviroment" 
+snippet sm  "inline maths enviroment" iA
 $ $1 $ $2
 endsnippet
 
@@ -646,4 +646,19 @@ endsnippet
 context "math()"
 snippet ',(\d\d)' "bra2" wrA
 \bra{`!p snip.rv = match.group(1)`}
+endsnippet 
+
+context "math()"
+snippet del "delta" iA
+\delta
+endsnippet 
+
+context "math()"
+snippet ln "natural log" iA
+\ln($1) $2
+endsnippet
+
+context "math()"
+snippet <> "\langle \rangle" iA
+\left \langle $1 \right \rangle $2
 endsnippet 
