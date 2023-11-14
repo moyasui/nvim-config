@@ -37,6 +37,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'joshdick/onedark.vim'
 Plug 'dedalozzo/Pygmentize'
 Plug 'panozzaj/vim-autocorrect'
+Plug 'github/copilot.vim'
 call plug#end()
 
 call deoplete#custom#var('omni', 'input_patterns', {

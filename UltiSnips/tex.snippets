@@ -28,6 +28,7 @@ snippet mynote "template for latex notes" b
 \setlength{\parskip}{0.05in}
 \usepackage{empheq}
 \usepackage{framed}
+\usepackage{listings}
 \usepackage[most]{tcolorbox}
 \usepackage{xcolor}
 \colorlet{shadecolor}{orange!15}
@@ -43,6 +44,27 @@ snippet mynote "template for latex notes" b
 \newtheorem{remark}{Remark}[section]
 \newtheorem*{example}{Example}
 \newtheorem{lemma}{Lemma}[section]
+
+\lstnewenvironment{mycode}[1][]
+{
+  \lstset{
+    language=Python, % Specify the programming language
+    basicstyle=\small\ttfamily, % Font style for the code
+    keywordstyle=\color{blue}, % Custom color for keywords
+    commentstyle=\color{green!50!black}, % Custom color for comments
+    stringstyle=\color{red}, % Custom color for strings
+    showstringspaces=false, % Don't show spaces in strings
+    breaklines=true, % Allow line breaks
+    frame=single, % Add a frame around the code
+    framesep=5pt, % Space between frame and code
+    rulecolor=\color{lightgray}, % Color of the frame
+    frameround=tttt, % Round the frame corners
+    numbers=left, % Display line numbers on the left
+    numberstyle=\tiny\color{gray}, % Style for line numbers
+    #1 % Additional customizations
+  }
+}
+{}
 
 \begin{document}
 \title{${1:${VISUAL}}}
@@ -629,22 +651,22 @@ endsnippet
 
 
 context "math()"
-snippet '\.\.(\d)' "ket1" wrA
+snippet '\.\.\.(\d)' "ket1" wrA
 \ket{`!p snip.rv = match.group(1)`}
 endsnippet
 
 context "math()"
-snippet '\.(\d\d)' "ket2" wrA
+snippet '\.\.(\d\d)' "ket2" wrA
 \ket{`!p snip.rv = match.group(1)`}
 endsnippet
 
 context "math()"
-snippet ',,(\d)' "bra1" wrA
+snippet ',,,(\d)' "bra1" wrA
 \bra{`!p snip.rv = match.group(1)`}
 endsnippet 
 
 context "math()"
-snippet ',(\d\d)' "bra2" wrA
+snippet ',,(\d\d)' "bra2" wrA
 \bra{`!p snip.rv = match.group(1)`}
 endsnippet 
 
@@ -671,4 +693,14 @@ endsnippet
 context "math()"
 snippet set "set notation" iA
 \\{ $1 \\} $2
+endsnippet 
+
+context "math()"
+snippet ket "ket" iA
+\ket{$1} $2
+endsnippet 
+
+context "math()" 
+snippet bra "bra" iA
+\bra{$1} $2 
 endsnippet 
