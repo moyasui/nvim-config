@@ -467,6 +467,10 @@ snippet bf "bold enviroment" Ai
 \textbf{$1} $2
 endsnippet
 
+snippet it "italic enviroment" 
+\textit{$1} $2
+endsnippet 
+
 snippet notes "new notes styles"
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}	% Para caracteres en español
@@ -703,4 +707,25 @@ endsnippet
 context "math()" 
 snippet bra "bra" iA
 \bra{$1} $2 
+endsnippet 
+
+context "math()"
+snippet bk "braket" iA
+\braket{$1} $2
+endsnippet
+
+snippet ttt "\textttt{}" iA
+\texttt{$1} $2
+endsnippet 
+
+snippet mcd "python code enviroment" iA
+\begin{mycode}
+	$1
+\end{mycode}
+$2
+endsnippet 
+
+context "math()"
+snippet exp "expectation value of something " iA
+\braket{\psi|$1|\psi} $2
 endsnippet 
