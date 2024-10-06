@@ -54,6 +54,7 @@ set nu
 set rnu
 set background=dark
 set mouse=a
+set shiftwidth=4 smarttab
 
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 "autocmd CursorHold * silent call CocActionAsync('highlight')
